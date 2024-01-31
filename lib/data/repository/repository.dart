@@ -76,4 +76,14 @@ class Repository {
       onFailed(err);
     });
   }
+
+  saveToken(String token, Function onSuccess) {
+    if (prefs != null) {
+      prefs?.setString("TOKEN", token).then((value) {
+        onSuccess();
+      }).catchError((e) {
+        debugPrint(e.toString());
+      });
+    }
+  }
 }
