@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raionbattlepass/presentation/Splash/splash_screen.dart';
+import 'package:raionbattlepass/presentation/auth/screen/login_screen.dart';
+import 'package:raionbattlepass/presentation/homepage/screen/home_screen.dart';
 
 import 'package:raionbattlepass/route/routes.dart';
 import 'package:go_router/go_router.dart';
@@ -26,6 +28,16 @@ class _AppRouterState extends State<AppRouter> {
             parentNavigatorKey: _rootNavKey,
             path: Routes.SPLASH_SCREEN,
             builder: (context, _) => const SplashScreen(),
+          ),
+          GoRoute(
+            parentNavigatorKey: _rootNavKey,
+            path: Routes.LOGIN_SCREEN,
+            builder: (context, _) => LoginScreen(),
+          ),
+          GoRoute(
+            parentNavigatorKey: _rootNavKey,
+            path: Routes.HOMEPAGE_SCREEN,
+            builder: (context, _) => HomePage(),
           ),
         ],
       ),

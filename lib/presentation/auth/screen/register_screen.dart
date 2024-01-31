@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:raionbattlepass/presentation/auth/screen/login_screen.dart';
 import 'package:raionbattlepass/route/routes.dart';
-import 'package:raionbattlepass/presentation/auth/controller/login_controller.dart';
+import 'package:raionbattlepass/presentation/auth/controller/register_controller.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  LoginController controller = Get.put(LoginController());
+class _RegisterScreenState extends State<RegisterScreen> {
+  RegisterController controller = Get.put(RegisterController());
   bool isPasswordVisible = false;
 
   @override
@@ -39,7 +40,35 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'nim',
+                    hintText: 'NIM',
+                    hintStyle: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(top: height * 0.02),
+                padding: EdgeInsets.symmetric(
+                  horizontal: width * 0.03,
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade300, width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(width * 0.03)),
+                ),
+                child: TextFormField(
+                  onChanged: (s) {
+                    controller.name = s;
+                  },
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Name',
                     hintStyle: TextStyle(
                       fontSize: 15,
                       color: Colors.grey.shade600,
@@ -91,16 +120,42 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(top: height * 0.02),
+                padding: EdgeInsets.symmetric(
+                  horizontal: width * 0.03,
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade300, width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(width * 0.03)),
+                ),
+                child: TextFormField(
+                  onChanged: (s) {
+                    controller.description = s;
+                  },
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Description',
+                    hintStyle: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+              ),
               Obx(() {
                 return controller.isLoading.value
                     ? const CircularProgressIndicator()
                     : GestureDetector(
                         onTap: () {
-                          controller.login(onSuccess: (token) {
-                            controller.saveToken(token, () {
-                              GoRouter.of(context).go(Routes.HOMEPAGE_SCREEN);
-                              showMySnackbar(context, 'berhasil');
-                            });
+                          controller.register(onSuccess: (msg) {
+                            GoRouter.of(context).go(Routes.LOGIN_SCREEN);
+                            showMySnackbar(context, msg);
                           }, onFailed: (msg) {
                             showMySnackbar(context, msg);
                           });
@@ -114,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 BorderRadius.all(Radius.circular(width * 0.03)),
                           ),
                           child: const Text(
-                            'Login',
+                            'Register',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
@@ -132,15 +187,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                         margin: EdgeInsets.only(right: width * 0.01),
                         child: Text(
-                          "Don't have an account?",
+                          "Already have an account?",
                           style: TextStyle(color: Colors.grey.shade600),
                         )),
                     GestureDetector(
                       onTap: () {
-                        GoRouter.of(context).go(Routes.REGISTER_SCREEN);
+                        GoRouter.of(context).go(Routes.LOGIN_SCREEN);
                       },
                       child: Text(
-                        'Register',
+                        'Login',
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: Colors.blue.shade700,
@@ -154,18 +209,4 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ));
   }
-}
-
-void showMySnackbar(BuildContext context, String msg) {
-  final snackBar = SnackBar(
-    content: Text(msg),
-    action: SnackBarAction(
-      label: 'Tutup',
-      onPressed: () {
-        // Aksi yang akan diambil ketika tombol "Tutup" ditekan.
-      },
-    ),
-  );
-
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
