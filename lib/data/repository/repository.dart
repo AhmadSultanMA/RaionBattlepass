@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:raionbattlepass/data/model/request/login/login_request.dart';
 import 'package:raionbattlepass/data/model/request/notes/notes_request.dart';
 import 'package:raionbattlepass/data/model/request/register/register_request.dart';
+import 'package:raionbattlepass/data/model/response/base/base_response.dart';
 import 'package:raionbattlepass/data/repository/retrofit_client.dart';
 import '../../main.dart';
 
