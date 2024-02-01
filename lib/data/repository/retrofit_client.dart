@@ -36,4 +36,7 @@ abstract class RetrofitClient {
 
   @GET("/note/{noteId}")
   Future<NoteDetailResponse> getNoteDetail(@Path("noteId") String noteId);
+
+  @DELETE("/note/{noteId}")
+  Future<BaseResponse> deleteNote(@Path("noteId") String noteId);
 }

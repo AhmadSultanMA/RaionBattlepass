@@ -127,6 +127,22 @@ class Repository {
     });
   }
 
+  void deleteNote(
+    String noteId, {
+    required Function(String) onSuccess,
+    required Function(String) onFailed,
+  }) {
+    client.deleteNote(noteId).then((value) {
+      if (!value.error) {
+        onSuccess(value.message);
+      } else {
+        onFailed(value.message);
+      }
+    }).catchError((err) {
+      onFailed(err);
+    });
+  }
+
   saveToken(String token, Function onSuccess) {
     if (prefs != null) {
       prefs?.setString("TOKEN", token).then((value) {

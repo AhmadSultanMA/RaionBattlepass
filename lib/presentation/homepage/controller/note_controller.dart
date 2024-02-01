@@ -36,4 +36,16 @@ class NoteController extends GetxController {
       onFailed(msg);
     });
   }
+
+  deleteNote(
+    String noteId, {
+    required Function(String) onSuccess,
+    required Function(String) onFailed,
+  }) {
+    repo.deleteNote(noteId, onSuccess: (value) {
+      onSuccess(value);
+    }, onFailed: (msg) {
+      onFailed(msg);
+    });
+  }
 }
