@@ -11,7 +11,6 @@ NoteDetailResponse _$NoteDetailResponseFromJson(Map<String, dynamic> json) =>
       error: json['error'] as bool,
       status: json['status'] as String,
       message: json['message'] as String,
-      count: json['count'] as int,
       data: NoteDetailData.fromJson(json['data'] as Map<String, dynamic>),
     );
 
@@ -20,7 +19,6 @@ Map<String, dynamic> _$NoteDetailResponseToJson(NoteDetailResponse instance) =>
       'error': instance.error,
       'status': instance.status,
       'message': instance.message,
-      'count': instance.count,
       'data': instance.data,
     };
 

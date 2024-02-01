@@ -39,4 +39,8 @@ abstract class RetrofitClient {
 
   @DELETE("/note/{noteId}")
   Future<BaseResponse> deleteNote(@Path("noteId") String noteId);
+
+  @PUT("/note/{noteId}")
+  Future<BaseResponse> editNote(
+      @Path("noteId") String noteId, @Body() NotesRequest request);
 }

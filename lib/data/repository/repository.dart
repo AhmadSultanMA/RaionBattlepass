@@ -143,6 +143,26 @@ class Repository {
     });
   }
 
+  void editNote(
+    String noteId,
+    String title,
+    String description, {
+    required Function(String) onSuccess,
+    required Function(String) onFailed,
+  }) {
+    client
+        .editNote(noteId, NotesRequest(title: title, description: description))
+        .then((value) {
+      if (!value.error) {
+        onSuccess(value.message);
+      } else {
+        onFailed(value.message);
+      }
+    }).catchError((err) {
+      onFailed(err);
+    });
+  }
+
   saveToken(String token, Function onSuccess) {
     if (prefs != null) {
       prefs?.setString("TOKEN", token).then((value) {

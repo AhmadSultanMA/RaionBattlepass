@@ -13,9 +13,6 @@ class NoteDetailResponse {
   @JsonKey(name: 'message')
   String message;
 
-  @JsonKey(name: 'count')
-  int count;
-
   @JsonKey(name: 'data')
   NoteDetailData data;
 
@@ -23,7 +20,6 @@ class NoteDetailResponse {
     required this.error,
     required this.status,
     required this.message,
-    required this.count,
     required this.data,
   });
 

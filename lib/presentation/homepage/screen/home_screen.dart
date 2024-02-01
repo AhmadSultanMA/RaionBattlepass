@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:raionbattlepass/presentation/auth/screen/login_screen.dart';
+import 'package:raionbattlepass/presentation/homepage/controller/edit_note_controller.dart';
 import 'package:raionbattlepass/presentation/homepage/controller/note_controller.dart';
 import 'package:raionbattlepass/presentation/homepage/controller/user_controller.dart';
 import 'package:raionbattlepass/route/routes.dart';
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   UserController userController = Get.put(UserController());
   NoteController noteController = Get.put(NoteController());
+  EditNoteController editController = Get.put(EditNoteController());
 
   @override
   void initState() {
@@ -132,6 +134,31 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       padding: EdgeInsets.all(16),
                                       child: Text('Delete'),
+                                    )),
+                                GestureDetector(
+                                    onTap: () {
+                                      editController.getNoteDetail(note.noteId,
+                                          onSuccess: (value) {
+                                        editController.noteId = value.noteId;
+                                        editController.title = value.title;
+                                        editController.description =
+                                            value.description;
+                                        GoRouter.of(context)
+                                            .go(Routes.EDITNOTE_SCREEN);
+                                      }, onFailed: (msg) {
+                                        showMySnackbar(context, msg);
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.blue.shade600),
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                      ),
+                                      padding: EdgeInsets.all(16),
+                                      child: Text('Edit'),
                                     )),
                               ],
                             ),
