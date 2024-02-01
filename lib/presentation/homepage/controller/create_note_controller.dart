@@ -1,30 +1,27 @@
-import 'package:get/get.dart';
 import 'package:raionbattlepass/data/repository/repository.dart';
+import 'package:get/get.dart';
 import 'package:raionbattlepass/data/repository/retrofit_client.dart';
 
-class LoginController extends GetxController {
-  var nim = "";
-  var password = "";
+class CreateNoteController extends GetxController {
+  var title = "";
+  var description = "";
   late RetrofitClient client;
 
   var repo = Repository();
+
   var isLoading = false.obs;
 
-  void login({
+  void createNote({
     required Function(String) onSuccess,
     required Function(String) onFailed,
   }) {
     isLoading(true);
-    repo.login(nim, password, onSuccess: (token) {
+    repo.postNote(title, description, onSuccess: (msg) {
       isLoading(false);
-      onSuccess(token);
+      onSuccess(msg);
     }, onFailed: (msg) {
       isLoading(false);
       onFailed(msg);
     });
-  }
-
-  void saveToken(String token, Function onSuccess) {
-    repo.saveToken(token, onSuccess);
   }
 }
