@@ -4,6 +4,7 @@ import 'package:raionbattlepass/presentation/auth/screen/login_screen.dart';
 import 'package:raionbattlepass/presentation/auth/screen/register_screen.dart';
 import 'package:raionbattlepass/presentation/homepage/screen/create_note.dart';
 import 'package:raionbattlepass/presentation/homepage/screen/edit_note.dart';
+import 'package:raionbattlepass/presentation/homepage/screen/edit_user.dart';
 import 'package:raionbattlepass/presentation/homepage/screen/home_screen.dart';
 
 import 'package:raionbattlepass/route/routes.dart';
@@ -56,6 +57,11 @@ class _AppRouterState extends State<AppRouter> {
             parentNavigatorKey: _rootNavKey,
             path: Routes.EDITNOTE_SCREEN,
             builder: (context, _) => EditNoteScreen(),
+          ),
+          GoRoute(
+            parentNavigatorKey: _rootNavKey,
+            path: Routes.EDITUSER_SCREEN,
+            builder: (context, _) => EditUserScreen(),
           ),
         ],
       ),

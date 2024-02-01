@@ -12,7 +12,6 @@ class CreateNoteScreen extends StatefulWidget {
 
 class _CreateNoteScreenState extends State<CreateNoteScreen> {
   CreateNoteController controller = Get.put(CreateNoteController());
-  bool isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {

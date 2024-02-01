@@ -5,4 +5,5 @@ class Routes {
   static const HOMEPAGE_SCREEN = "/homepage";
   static const CREATENOTE_SCREEN = "/createnote";
   static const EDITNOTE_SCREEN = "/editnote";
+  static const EDITUSER_SCREEN = "/edituser";
 }

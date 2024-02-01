@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:raionbattlepass/data/model/request/editUser/edit_user_request.dart';
 import 'package:raionbattlepass/data/model/request/login/login_request.dart';
 import 'package:raionbattlepass/data/model/request/notes/notes_request.dart';
 import 'package:raionbattlepass/data/model/request/register/register_request.dart';
@@ -88,6 +89,27 @@ class Repository {
     client.getUserDetail().then((value) {
       if (!value.error) {
         onSuccess(value.data);
+      } else {
+        onFailed(value.message);
+      }
+    }).catchError((err) {
+      onFailed(err);
+    });
+  }
+
+  void editUser(
+    String name,
+    String password,
+    String description, {
+    required Function(String) onSuccess,
+    required Function(String) onFailed,
+  }) {
+    client
+        .editUser(EditUserRequest(
+            name: name, password: password, description: description))
+        .then((value) {
+      if (!value.error) {
+        onSuccess(value.message);
       } else {
         onFailed(value.message);
       }

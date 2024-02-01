@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:raionbattlepass/presentation/auth/screen/login_screen.dart';
-import 'package:raionbattlepass/presentation/homepage/controller/edit_note_controller.dart';
+import 'package:raionbattlepass/presentation/homepage/controller/edit_user_controller.dart';
 import 'package:raionbattlepass/route/routes.dart';
 
-class EditNoteScreen extends StatefulWidget {
+class EditUserScreen extends StatefulWidget {
   @override
-  _EditNoteScreenState createState() => _EditNoteScreenState();
+  _EditUserScreenState createState() => _EditUserScreenState();
 }
 
-class _EditNoteScreenState extends State<EditNoteScreen> {
-  EditNoteController controller = Get.find<EditNoteController>();
+class _EditUserScreenState extends State<EditUserScreen> {
+  EditUserController controller = Get.put(EditUserController());
+  bool isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,9 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              Text(controller.noteId),
               Container(
                 alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(top: height * 0.02),
                 padding: EdgeInsets.symmetric(
                   horizontal: width * 0.03,
                 ),
@@ -36,11 +37,11 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                 ),
                 child: TextFormField(
                   onChanged: (s) {
-                    controller.title = s;
+                    controller.name = s;
                   },
-                  initialValue: controller.title,
                   decoration: InputDecoration(
                     border: InputBorder.none,
+                    hintText: 'Name',
                     hintStyle: TextStyle(
                       fontSize: 15,
                       color: Colors.grey.shade600,
@@ -54,6 +55,47 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
               ),
               Container(
                 alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(top: height * 0.02),
+                padding: EdgeInsets.symmetric(horizontal: width * 0.03),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade300, width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(width * 0.03)),
+                ),
+                child: TextFormField(
+                  onChanged: (s) {
+                    controller.password = s;
+                  },
+                  obscureText: !isPasswordVisible,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Password',
+                    hintStyle: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey.shade600,
+                    ),
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isPasswordVisible = !isPasswordVisible;
+                        });
+                      },
+                      child: Icon(
+                        isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(top: height * 0.02),
                 padding: EdgeInsets.symmetric(
                   horizontal: width * 0.03,
                 ),
@@ -65,9 +107,9 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                   onChanged: (s) {
                     controller.description = s;
                   },
-                  initialValue: controller.description,
                   decoration: InputDecoration(
                     border: InputBorder.none,
+                    hintText: 'Description',
                     hintStyle: TextStyle(
                       fontSize: 15,
                       color: Colors.grey.shade600,
@@ -84,13 +126,20 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                     ? const CircularProgressIndicator()
                     : GestureDetector(
                         onTap: () {
-                          controller.editNote(onSuccess: (msg) {
-                            GoRouter.of(context).go(Routes.HOMEPAGE_SCREEN);
-                            controller.resetEdit();
-                            showMySnackbar(context, msg);
-                          }, onFailed: (msg) {
-                            showMySnackbar(context, msg);
-                          });
+                          if (controller.name == "") {
+                            showMySnackbar(context, 'isi name');
+                          } else if (controller.password == "") {
+                            showMySnackbar(context, 'isi password');
+                          } else if (controller.description == "") {
+                            showMySnackbar(context, 'isi description');
+                          } else {
+                            controller.editUser(onSuccess: (msg) {
+                              GoRouter.of(context).go(Routes.HOMEPAGE_SCREEN);
+                              showMySnackbar(context, msg);
+                            }, onFailed: (msg) {
+                              showMySnackbar(context, msg);
+                            });
+                          }
                         },
                         child: Container(
                           padding: EdgeInsets.all(height * 0.02),

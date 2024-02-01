@@ -72,7 +72,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -87,6 +86,20 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(userController.name.value),
                         Text(userController.nim.value),
+                        GestureDetector(
+                            onTap: () {
+                              GoRouter.of(context).go(Routes.EDITUSER_SCREEN);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.blue.shade600),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              padding: EdgeInsets.all(16),
+                              child: Text('Edit User'),
+                            )),
                       ],
                     );
                   }),

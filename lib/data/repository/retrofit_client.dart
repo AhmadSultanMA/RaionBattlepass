@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:raionbattlepass/data/model/request/editUser/edit_user_request.dart';
 import 'package:raionbattlepass/data/model/request/login/login_request.dart';
 import 'package:raionbattlepass/data/model/request/notes/notes_request.dart';
 import 'package:raionbattlepass/data/model/request/register/register_request.dart';
@@ -30,6 +31,9 @@ abstract class RetrofitClient {
 
   @GET("/user")
   Future<UserResponse> getUserDetail();
+
+  @PUT("/user")
+  Future<BaseResponse> editUser(@Body() EditUserRequest request);
 
   @GET("/note")
   Future<NoteResponse> getAllNotes();
