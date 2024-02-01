@@ -159,13 +159,13 @@ class _RetrofitClient implements RetrofitClient {
   }
 
   @override
-  Future<NoteResponse> getNoteDetail(String noteId) async {
+  Future<NoteDetailResponse> getNoteDetail(String noteId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<NoteResponse>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<NoteDetailResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -181,7 +181,7 @@ class _RetrofitClient implements RetrofitClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = NoteResponse.fromJson(_result.data!);
+    final value = NoteDetailResponse.fromJson(_result.data!);
     return value;
   }
 

@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:raionbattlepass/data/model/request/login/login_request.dart';
 import 'package:raionbattlepass/data/model/request/notes/notes_request.dart';
 import 'package:raionbattlepass/data/model/request/register/register_request.dart';
-import 'package:raionbattlepass/data/model/response/base/base_response.dart';
+import 'package:raionbattlepass/data/model/response/notes/note_detail_response.dart';
+import 'package:raionbattlepass/data/model/response/notes/note_response.dart';
+import 'package:raionbattlepass/data/model/response/user/user_response.dart';
 import 'package:raionbattlepass/data/repository/retrofit_client.dart';
 import '../../main.dart';
 
@@ -70,6 +72,52 @@ class Repository {
         .then((value) {
       if (!value.error) {
         onSuccess(value.message);
+      } else {
+        onFailed(value.message);
+      }
+    }).catchError((err) {
+      onFailed(err);
+    });
+  }
+
+  void getUser({
+    required Function(UserData) onSuccess,
+    required Function(String) onFailed,
+  }) {
+    client.getUserDetail().then((value) {
+      if (!value.error) {
+        onSuccess(value.data);
+      } else {
+        onFailed(value.message);
+      }
+    }).catchError((err) {
+      onFailed(err);
+    });
+  }
+
+  void getAllNotes({
+    required Function(List<NoteData>) onSuccess,
+    required Function(String) onFailed,
+  }) {
+    client.getAllNotes().then((value) {
+      if (!value.error) {
+        onSuccess(value.data);
+      } else {
+        onFailed(value.message);
+      }
+    }).catchError((err) {
+      onFailed(err);
+    });
+  }
+
+  void getNote(
+    String noteId, {
+    required Function(NoteDetailData) onSuccess,
+    required Function(String) onFailed,
+  }) {
+    client.getNoteDetail(noteId).then((value) {
+      if (!value.error) {
+        onSuccess(value.data);
       } else {
         onFailed(value.message);
       }
