@@ -23,8 +23,4 @@ class LoginController extends GetxController {
       onFailed(msg);
     });
   }
-
-  void saveToken(String token, Function onSuccess) {
-    repo.saveToken(token, onSuccess);
-  }
 }

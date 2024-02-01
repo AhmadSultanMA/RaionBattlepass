@@ -153,12 +153,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ? const CircularProgressIndicator()
                     : GestureDetector(
                         onTap: () {
-                          controller.register(onSuccess: (msg) {
-                            GoRouter.of(context).go(Routes.LOGIN_SCREEN);
-                            showMySnackbar(context, msg);
-                          }, onFailed: (msg) {
-                            showMySnackbar(context, msg);
-                          });
+                          if (controller.nim == "") {
+                            showMySnackbar(context, 'isi nim');
+                          } else if (controller.name == "") {
+                            showMySnackbar(context, 'isi name');
+                          } else if (controller.password == "") {
+                            showMySnackbar(context, 'isi password');
+                          } else if (controller.description == "") {
+                            showMySnackbar(context, 'isi description');
+                          } else {
+                            controller.register(onSuccess: (msg) {
+                              GoRouter.of(context).go(Routes.LOGIN_SCREEN);
+                              showMySnackbar(context, msg);
+                            }, onFailed: (msg) {
+                              showMySnackbar(context, msg);
+                            });
+                          }
                         },
                         child: Container(
                           padding: EdgeInsets.all(height * 0.02),

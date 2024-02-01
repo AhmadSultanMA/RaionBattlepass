@@ -3,4 +3,5 @@ class Routes {
   static const LOGIN_SCREEN = "/login";
   static const REGISTER_SCREEN = "/REGISTER";
   static const HOMEPAGE_SCREEN = "/homepage";
+  static const CREATENOTE_SCREEN = "/createnote";
 }

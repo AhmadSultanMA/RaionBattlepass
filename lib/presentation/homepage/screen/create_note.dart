@@ -86,6 +86,7 @@ class _CreateNoteScreenState extends State<CreateNoteScreen> {
                         onTap: () {
                           controller.createNote(onSuccess: (msg) {
                             GoRouter.of(context).go(Routes.HOMEPAGE_SCREEN);
+                            Get.find<CreateNoteController>().resetCreate();
                             showMySnackbar(context, msg);
                           }, onFailed: (msg) {
                             showMySnackbar(context, msg);
@@ -110,32 +111,6 @@ class _CreateNoteScreenState extends State<CreateNoteScreen> {
                         ),
                       );
               }),
-              Container(
-                margin: EdgeInsets.only(top: height * 0.025),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        margin: EdgeInsets.only(right: width * 0.01),
-                        child: Text(
-                          "Don't have an account?",
-                          style: TextStyle(color: Colors.grey.shade600),
-                        )),
-                    GestureDetector(
-                      onTap: () {
-                        GoRouter.of(context).go(Routes.REGISTER_SCREEN);
-                      },
-                      child: Text(
-                        'Register',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.blue.shade700,
-                            fontSize: 15),
-                      ),
-                    )
-                  ],
-                ),
-              ),
             ],
           ),
         ));

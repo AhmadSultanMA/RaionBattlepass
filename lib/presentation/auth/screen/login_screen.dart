@@ -97,10 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     : GestureDetector(
                         onTap: () {
                           controller.login(onSuccess: (token) {
-                            controller.saveToken(token, () {
-                              GoRouter.of(context).go(Routes.HOMEPAGE_SCREEN);
-                              showMySnackbar(context, 'berhasil');
-                            });
+                            GoRouter.of(context).go(Routes.HOMEPAGE_SCREEN);
+                            showMySnackbar(context, 'berhasil');
                           }, onFailed: (msg) {
                             showMySnackbar(context, msg);
                           });

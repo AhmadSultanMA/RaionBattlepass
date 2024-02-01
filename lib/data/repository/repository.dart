@@ -52,6 +52,7 @@ class Repository {
   }) {
     client.login(LoginRequest(nim: nim, password: password)).then((value) {
       if (!value.error) {
+        saveToken(value.data.token, () {});
         onSuccess(value.data.token);
       } else {
         onFailed(value.message);
@@ -134,5 +135,18 @@ class Repository {
         debugPrint(e.toString());
       });
     }
+  }
+
+  getToken(Function(String) onSuccess) {
+    if (prefs != null) {
+      onSuccess(prefs?.getString("TOKEN") ?? "");
+    }
+  }
+
+  removeToken() {
+    prefs?.remove("TOKEN").catchError((e) {
+      debugPrint(e.toString());
+      return false;
+    });
   }
 }

@@ -24,4 +24,9 @@ class CreateNoteController extends GetxController {
       onFailed(msg);
     });
   }
+
+  resetCreate() {
+    title = "";
+    description = "";
+  }
 }
